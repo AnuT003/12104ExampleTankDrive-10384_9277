@@ -50,7 +50,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.button(0).whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**
@@ -68,8 +68,8 @@ public class RobotContainer {
      * Get forward and rotation values from the joystick. Invert the joystick's
      * Y value because its forward direction is negative.
      */
-    double forward = -m_driverController.getLeftY();
-    double rotation = m_driverController.getRightX();
+    double forward = -m_driverController.getY();
+    double rotation = m_driverController.getX();
 
     m_drivetrain.drive(forward, rotation);
   }

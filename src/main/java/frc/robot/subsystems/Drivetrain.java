@@ -10,8 +10,10 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
@@ -26,7 +28,7 @@ public class Drivetrain extends SubsystemBase {
   // private final MotorControllerGroup rightSpeedController = new MotorControllerGroup(rightLeadMotor, rightFollower1);
   
   private final DifferentialDrive m_drive = new DifferentialDrive(leftLeadMotor, rightLeadMotor);
-  
+
   public Drivetrain() {
     SparkMaxConfig globalConfig = new SparkMaxConfig();
     SparkMaxConfig rightLeaderConfig = new SparkMaxConfig();
@@ -62,7 +64,7 @@ public class Drivetrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void run(double forward, double turn){
+  public void drive(double forward, double turn){
     m_drive.arcadeDrive(forward, turn);
   }
 }

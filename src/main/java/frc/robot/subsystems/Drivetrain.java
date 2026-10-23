@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,19 +20,39 @@ public class Drivetrain extends SubsystemBase {
   private final SparkMax rightFollower = new SparkMax(DrivetrainConstants.rightFollower, SparkMax.MotorType.kBrushed);
 
   // if using 4 motors, delete leftFollower2 and rightFollower2
-  private final MotorControllerGroup leftSpeedController = new MotorControllerGroup(leftLeadMotor, leftFollower);
-  private final MotorControllerGroup rightSpeedController = new MotorControllerGroup(rightLeadMotor, rightFollower);
+  // private final MotorControllerGroup leftSpeedController = new MotorControllerGroup(leftLeadMotor, leftFollower1);
+  // private final MotorControllerGroup rightSpeedController = new MotorControllerGroup(rightLeadMotor, rightFollower1);
   
-  private final DifferentialDrive m_drive = new DifferentialDrive(leftSpeedController, rightSpeedController);
+  private final DifferentialDrive m_drive = new DifferentialDrive(leftLeadMotor, rightLeadMotor);
   
   public Drivetrain() {
-    leftMotorController.setInverted(DrivetrainConstants.leftMotorInvert);
-    rightMotorController.setInverted(DrivetrainConstants.rightMotorInvert);
+    SparkMaxConfig globalConfig = new SparkMaxConfig();
+    SparkMaxConfig rightLeaderConfig = new SparkMaxConfig();
+    SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
+    SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
+
+    globalConfig
+      .smartCurrentLimit(50)
+      .idleMode(IdleMode.kBrake);
+
+    rightLeaderConfig
+        .apply(globalConfig)
+        .inverted(true);
+
+    // Apply the global config and set the leader SPARK for follower mode
+    leftFollowerConfig
+        .apply(globalConfig)
+        .follow(leftLeadMotor);
+
+    // Apply the global config and set the leader SPARK for follower mode
+    rightFollowerConfig
+        .apply(globalConfig)
+        .follow(rightLeadMotor);
     
-    leftLeadMotor.setIdleMode(SparkMax.IdleMode.kCoast);
-    rightLeadMotor.setIdleMode(SparkMax.IdleMode.kCoast);
-    leftFollower.setIdleMode(SparkMax.IdleMode.kCoast);
-    rightFollower.setIdleMode(SparkMax.IdleMode.kCoast);
+    leftLeadMotor.configure(globalConfig, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
+    leftFollower.configure(leftFollowerConfig, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
+    rightLeadMotor.configure(rightLeaderConfig, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
+    rightFollower.configure(rightFollowerConfig, SparkMax.ResetMode.kResetSafeParameters, SparkMax.PersistMode.kPersistParameters);
   }
 
   @Override

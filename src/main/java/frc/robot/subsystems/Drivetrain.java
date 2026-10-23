@@ -4,8 +4,8 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.CANSparkMax;
+// import com.revrobotics.SparkMaxLowLevel;
+import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -14,14 +14,14 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
-  private final CANSparkMax leftLeadMotor = new CANSparkMax(Constants.leftMotorFront, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private final CANSparkMax rightLeadMotor = new CANSparkMax(Constants.rightMotorFront, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private final CANSparkMax leftFollower1 = new CANSparkMax(Constants.leftFollower1, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private final CANSparkMax rightFollower1 = new CANSparkMax(Constants.rightFollower1, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax leftLeadMotor = new SparkMax(Constants.leftMotorFront, SparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax rightLeadMotor = new SparkMax(Constants.rightMotorFront, SparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax leftFollower1 = new SparkMax(Constants.leftFollower1, SparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax rightFollower1 = new SparkMax(Constants.rightFollower1, SparkMaxLowLevel.MotorType.kBrushless);
 
   // Use for 6-motor drive
-  private final CANSparkMax leftFollower2 = new CANSparkMax(Constants.leftFollower2, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private final CANSparkMax rightFollower2 = new CANSparkMax(Constants.rightFollower2, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax leftFollower2 = new SparkMax(Constants.leftFollower2, SparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax rightFollower2 = new SparkMax(Constants.rightFollower2, SparkMaxLowLevel.MotorType.kBrushless);
   
   // if using 4 motors, delete leftFollower2 and rightFollower2
   private final SpeedControllerGroup leftSpeedController = new SpeedControllerGroup(leftLeadMotor, leftFollower1, leftFollower2);
@@ -33,12 +33,12 @@ public class Drivetrain extends SubsystemBase {
     leftSpeedController.setInverted(Constants.leftMotorInvert);
     rightSpeedController.setInverted(Constants.rightMotorInvert);
     
-    leftLeadMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
-    rightLeadMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
-    leftFollower1.setIdleMode(CANSparkMax.IdleMode.kCoast);
-    rightFollower1.setIdleMode(CANSparkMax.IdleMode.kCoast);
-    leftFollower2.setIdleMode(CANSparkMax.IdleMode.kCoast);
-    rightFollower2.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    leftLeadMotor.setIdleMode(SparkMax.IdleMode.kCoast);
+    rightLeadMotor.setIdleMode(SparkMax.IdleMode.kCoast);
+    leftFollower1.setIdleMode(SparkMax.IdleMode.kCoast);
+    rightFollower1.setIdleMode(SparkMax.IdleMode.kCoast);
+    leftFollower2.setIdleMode(SparkMax.IdleMode.kCoast);
+    rightFollower2.setIdleMode(SparkMax.IdleMode.kCoast);
   }
 
   @Override

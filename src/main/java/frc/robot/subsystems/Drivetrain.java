@@ -14,10 +14,10 @@ import frc.robot.Constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
-  private final SparkMax leftLeadMotor = new SparkMax(DrivetrainConstants.leftMotorFront, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax rightLeadMotor = new SparkMax(DrivetrainConstants.rightMotorFront, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax leftFollower1 = new SparkMax(DrivetrainConstants.leftFollower1, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax rightFollower1 = new SparkMax(DrivetrainConstants.rightFollower1, SparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax leftLeadMotor = new SparkMax(DrivetrainConstants.leftMotorFront, SparkMaxLowLevel.MotorType.kBrushed);
+  private final SparkMax rightLeadMotor = new SparkMax(DrivetrainConstants.rightMotorFront, SparkMaxLowLevel.MotorType.kBrushed);
+  private final SparkMax leftFollower1 = new SparkMax(DrivetrainConstants.leftFollower1, SparkMaxLowLevel.MotorType.kBrushed);
+  private final SparkMax rightFollower1 = new SparkMax(DrivetrainConstants.rightFollower1, SparkMaxLowLevel.MotorType.kBrushed);
 
   // if using 4 motors, delete leftFollower2 and rightFollower2
   private final MotorControllerGroup leftSpeedController = new MotorControllerGroup(leftLeadMotor, leftFollower1);

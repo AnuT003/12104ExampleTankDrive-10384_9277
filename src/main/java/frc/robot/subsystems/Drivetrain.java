@@ -14,14 +14,14 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
-  private final SparkMax leftLeadMotor = new SparkMax(Constants.leftMotorFront, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax rightLeadMotor = new SparkMax(Constants.rightMotorFront, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax leftFollower1 = new SparkMax(Constants.leftFollower1, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax rightFollower1 = new SparkMax(Constants.rightFollower1, SparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax leftLeadMotor = new SparkMax(Constants.leftMotorFront, SparkMaxLowLevel.MotorType.kBrushed);
+  private final SparkMax rightLeadMotor = new SparkMax(Constants.rightMotorFront, SparkMaxLowLevel.MotorType.kBrushed);
+  private final SparkMax leftFollower1 = new SparkMax(Constants.leftFollower1, SparkMaxLowLevel.MotorType.kBrushed);
+  private final SparkMax rightFollower1 = new SparkMax(Constants.rightFollower1, SparkMaxLowLevel.MotorType.kBrushed);
 
   // Use for 6-motor drive
-  private final SparkMax leftFollower2 = new SparkMax(Constants.leftFollower2, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax rightFollower2 = new SparkMax(Constants.rightFollower2, SparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax leftFollower2 = new SparkMax(Constants.leftFollower2, SparkMaxLowLevel.MotorType.kBrushed);
+  private final SparkMax rightFollower2 = new SparkMax(Constants.rightFollower2, SparkMaxLowLevel.MotorType.kBrushed);
   
   // if using 4 motors, delete leftFollower2 and rightFollower2
   private final SpeedControllerGroup leftSpeedController = new SpeedControllerGroup(leftLeadMotor, leftFollower1, leftFollower2);

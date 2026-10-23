@@ -10,9 +10,11 @@ import com.revrobotics.spark.SparkMax; //rev robotics spark max motor controller
 import com.revrobotics.spark.config.SparkMaxConfig; //config motor controllers
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode; //state when no current commands
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive; //tank drive control each side at different speeds
-import edu.wpi.first.wpilibj2.command.SubsystemBase; //connects subsystem structure in code
-import frc.robot.Constants.DrivetrainConstants; //calls separate constants file
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
@@ -24,7 +26,9 @@ public class Drivetrain extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(leftLeadMotor, rightLeadMotor); //declare each side of drivetrain
   
   public Drivetrain() {
-    SparkMaxConfig globalConfig = new SparkMaxConfig(); //config for all motors
+    SparkMaxConfig globalConfig = new SparkMaxConfig();
+
+    SparkMaxConfig leftLeaderConfig = new SparkMaxConfig();
     SparkMaxConfig rightLeaderConfig = new SparkMaxConfig();
     SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
     SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
@@ -32,6 +36,10 @@ public class Drivetrain extends SubsystemBase {
     globalConfig
       .smartCurrentLimit(50)
       .idleMode(IdleMode.kBrake);
+
+    leftLeaderConfig
+        .apply(globalConfig)
+        .inverted(false);
 
     rightLeaderConfig
         .apply(globalConfig)
@@ -47,7 +55,7 @@ public class Drivetrain extends SubsystemBase {
         .apply(globalConfig)
         .follow(rightLeadMotor);
     
-    leftLeadMotor.configure(globalConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    leftLeadMotor.configure(leftLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     leftFollower.configure(leftFollowerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightLeadMotor.configure(rightLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightFollower.configure(rightFollowerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -58,7 +66,7 @@ public class Drivetrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void run(double forward, double turn){
+  public void drive(double forward, double turn){
     m_drive.arcadeDrive(forward, turn);
   }
 }

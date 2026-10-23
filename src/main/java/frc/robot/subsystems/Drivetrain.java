@@ -35,7 +35,7 @@ public class Drivetrain extends SubsystemBase {
     SparkMaxConfig rightFollowerConfig = new SparkMaxConfig(); //configs for right follower motor
 
     globalConfig
-      .smartCurrentLimit(50) //current cannot go over 50 amps
+      // .smartCurrentLimit(5) //current cannot go over 50 amps
       .idleMode(IdleMode.kBrake); //motor will brake when no command is given
 
     leftLeaderConfig
@@ -69,6 +69,6 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void drive(double forward, double turn){
-    m_drive.arcadeDrive(forward, turn);
+    m_drive.arcadeDrive(forward, turn, true);
   }
 }

@@ -68,8 +68,8 @@ public class RobotContainer {
      * Get forward and rotation values from the joystick. Invert the joystick's
      * Y value because its forward direction is negative.
      */
-    double forward = -m_driverController.getY();
-    double rotation = m_driverController.getX();
+    double forward = -m_driverController.getRawAxis(1);
+    double rotation = m_driverController.getRawAxis(4);
 
     m_drivetrain.drive(forward, rotation);
   }

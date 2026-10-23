@@ -63,7 +63,7 @@ public class RobotContainer {
     return Autos.exampleAuto(m_exampleSubsystem);
   }
 
-  public void teleopPeriod() {
+  public void teleopPeriodic() {
      /**
      * Get forward and rotation values from the joystick. Invert the joystick's
      * Y value because its forward direction is negative.

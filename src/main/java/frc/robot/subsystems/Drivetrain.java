@@ -13,6 +13,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode; //state when no cu
 import edu.wpi.first.wpilibj.Joystick; //controllers
 import edu.wpi.first.wpilibj.drive.DifferentialDrive; //drivebase wher each motors
 import edu.wpi.first.wpilibj2.command.SubsystemBase; //connect drivetrain to command-based framework
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants; //constants file
 import frc.robot.Constants.DrivetrainConstants; //class inside constants file
 

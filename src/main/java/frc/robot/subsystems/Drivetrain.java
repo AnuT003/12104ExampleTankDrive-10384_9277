@@ -31,6 +31,8 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
     SparkMaxConfig globalConfig = new SparkMaxConfig();
+
+    SparkMaxConfig leftLeaderConfig = new SparkMaxConfig();
     SparkMaxConfig rightLeaderConfig = new SparkMaxConfig();
     SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
     SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
@@ -38,6 +40,10 @@ public class Drivetrain extends SubsystemBase {
     globalConfig
       .smartCurrentLimit(50)
       .idleMode(IdleMode.kBrake);
+
+    leftLeaderConfig
+        .apply(globalConfig)
+        .inverted(false);
 
     rightLeaderConfig
         .apply(globalConfig)
@@ -53,7 +59,7 @@ public class Drivetrain extends SubsystemBase {
         .apply(globalConfig)
         .follow(rightLeadMotor);
     
-    leftLeadMotor.configure(globalConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    leftLeadMotor.configure(leftLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     leftFollower.configure(leftFollowerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightLeadMotor.configure(rightLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightFollower.configure(rightFollowerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);

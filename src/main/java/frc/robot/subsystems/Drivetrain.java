@@ -4,30 +4,28 @@
 
 package frc.robot.subsystems;
 
-// import com.revrobotics.SparkMaxLowLevel;
 import com.revrobotics.spark.SparkMax;
 
-import edu.wpi.first.wpilibj.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivetrainConstants;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
-  private final SparkMax leftLeadMotor = new SparkMax(DrivetrainConstants.leftMotorFront, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax rightLeadMotor = new SparkMax(DrivetrainConstants.rightMotorFront, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax leftFollower1 = new SparkMax(DrivetrainConstants.leftFollower1, SparkMaxLowLevel.MotorType.kBrushless);
-  private final SparkMax rightFollower1 = new SparkMax(DrivetrainConstants.rightFollower1, SparkMaxLowLevel.MotorType.kBrushless);
+  private final SparkMax leftLeadMotor = new SparkMax(DrivetrainConstants.leftMotorFront, SparkMax.MotorType.kBrushless);
+  private final SparkMax rightLeadMotor = new SparkMax(DrivetrainConstants.rightMotorFront, SparkMax.MotorType.kBrushless);
+  private final SparkMax leftFollower = new SparkMax(DrivetrainConstants.leftFollower1, SparkMax.MotorType.kBrushless);
+  private final SparkMax rightFollower = new SparkMax(DrivetrainConstants.rightFollower1, SparkMax.MotorType.kBrushless);
 
   // if using 4 motors, delete leftFollower2 and rightFollower2
-  private final MotorControllerGroup leftSpeedController = new MotorControllerGroup(leftLeadMotor, leftFollower1);
-  private final MotorControllerGroup rightSpeedController = new MotorControllerGroup(rightLeadMotor, rightFollower1);
+  private final MotorControllerGroup leftSpeedController = new MotorControllerGroup(leftLeadMotor, leftFollower);
+  private final MotorControllerGroup rightSpeedController = new MotorControllerGroup(rightLeadMotor, rightFollower);
   
   private final DifferentialDrive m_drive = new DifferentialDrive(leftSpeedController, rightSpeedController);
   
   public Drivetrain() {
-    leftSpeedController.setInverted(DrivetrainConstants.leftMotorInvert);
-    rightSpeedController.setInverted(DrivetrainConstants.rightMotorInvert);
+    leftMotorController.setInverted(DrivetrainConstants.leftMotorInvert);
+    rightMotorController.setInverted(DrivetrainConstants.rightMotorInvert);
     
     leftLeadMotor.setIdleMode(SparkMax.IdleMode.kCoast);
     rightLeadMotor.setIdleMode(SparkMax.IdleMode.kCoast);

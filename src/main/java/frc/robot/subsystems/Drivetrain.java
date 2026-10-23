@@ -10,11 +10,11 @@ import com.revrobotics.spark.SparkMax; //rev robotics spark max motor controller
 import com.revrobotics.spark.config.SparkMaxConfig; //config motor controllers
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode; //state when no current commands
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Constants.DrivetrainConstants;
+import edu.wpi.first.wpilibj.Joystick; //controllers
+import edu.wpi.first.wpilibj.drive.DifferentialDrive; //drivebase wher each motors
+import edu.wpi.first.wpilibj2.command.SubsystemBase; //connect drivetrain to command-based framework
+import frc.robot.Constants; //constants file
+import frc.robot.Constants.DrivetrainConstants; //class inside constants file
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
@@ -26,35 +26,36 @@ public class Drivetrain extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(leftLeadMotor, rightLeadMotor); //declare each side of drivetrain
   
   public Drivetrain() {
-    SparkMaxConfig globalConfig = new SparkMaxConfig();
+    SparkMaxConfig globalConfig = new SparkMaxConfig(); //configs for all motors
 
-    SparkMaxConfig leftLeaderConfig = new SparkMaxConfig();
-    SparkMaxConfig rightLeaderConfig = new SparkMaxConfig();
-    SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
-    SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
+    SparkMaxConfig leftLeaderConfig = new SparkMaxConfig(); //configs for left lead motor
+    SparkMaxConfig rightLeaderConfig = new SparkMaxConfig(); //configs for right lead motor
+    SparkMaxConfig leftFollowerConfig = new SparkMaxConfig(); //configs for left follower motor
+    SparkMaxConfig rightFollowerConfig = new SparkMaxConfig(); //configs for right follower motor
 
     globalConfig
-      .smartCurrentLimit(50)
-      .idleMode(IdleMode.kBrake);
+      .smartCurrentLimit(50) //current cannot go over 50 amps
+      .idleMode(IdleMode.kBrake); //motor will brake when no command is given
 
     leftLeaderConfig
-        .apply(globalConfig)
+        .apply(globalConfig) //apply global configs
         .inverted(false);
 
     rightLeaderConfig
-        .apply(globalConfig)
-        .inverted(true);
+        .apply(globalConfig) //apply global configs
+        .inverted(true); //invert motor config from global
 
     // Apply the global config and set the leader SPARK for follower mode
     leftFollowerConfig
-        .apply(globalConfig)
-        .follow(leftLeadMotor);
+        .apply(globalConfig) //apply global configs
+        .follow(leftLeadMotor); //follow commands of main left motor
 
     // Apply the global config and set the leader SPARK for follower mode
     rightFollowerConfig
-        .apply(globalConfig)
-        .follow(rightLeadMotor);
-    
+        .apply(globalConfig) //apply global configs
+        .follow(rightLeadMotor); //follow commands of main right motor
+
+    //apply rest and persist mode
     leftLeadMotor.configure(leftLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     leftFollower.configure(leftFollowerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightLeadMotor.configure(rightLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
